@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
@@ -20,18 +21,18 @@ use App\Http\Controllers\messageController;
 */
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return ['' => app()->version()];
+   
 });
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::prefix('v1')->group(function (){
-        Route::resource('users', userController::class);
-        // TODO: Users route
-        Route::get('friends', [listFriendsController::class, 'index']);
-        // TODO: Message route
-        Route::prefix('message')->group(function (){
-            Route::get('{id}', [messageController::class, 'getMessage']);
-            Route::post('/', [messageController::class, 'postMessage']);
-        });
+
+
+Route::get('/example', function () {
+    return 'Cette route utilise un middleware.';
+})->middleware();
+Route::get('/user/{user}', function ( $user) {
+    return $user;
     });
-});
+
+
+
 require __DIR__.'/auth.php';

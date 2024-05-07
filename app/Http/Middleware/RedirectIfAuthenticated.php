@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
@@ -21,6 +20,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // Vérifie si la demande attend une réponse JSON
+                if ($request->expectsJson()) {
+                    return response()->json(['message' => 'Already authenticated.'], 200);
+                }
+                // Si ce n'est pas une requête JSON, redirige vers la page d'accueil
                 return redirect(RouteServiceProvider::HOME);
             }
         }
