@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\userController;
-use App\Http\Controllers\listFriendsController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListFriendsController;
+use App\Http\Controllers\AuthenticatedSessionController ;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +17,9 @@ use App\Http\Controllers\listFriendsController;
 |
 */
 
-// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// TODO: User route
-
+// Route to get authenticated user details
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::post('/register', [AuthenticatedSessionController::class, 'register']);
+Route::post('/login', [AuthenticatedSessionController ::class, 'login']);

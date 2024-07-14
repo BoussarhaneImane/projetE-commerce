@@ -21,13 +21,13 @@ use App\Http\Controllers\messageController;
 */
 
 Route::get('/', function () {
-    return ['' => app()->version()];
+    return ['developer web imane' => app()->version()];
    
 });
 
 
 Route::get('/example', function () {
-    return 'Cette route utilise un middleware.';
+    return 'CC.';
 })->middleware();
 Route::get('/user/{user}', function ( $user) {
     return $user;
